@@ -26,18 +26,19 @@ public class RActivityResult {
     private RActivityResult() {
     }
 
+    @NonNull
     public static Builder create(@NonNull Activity activity) {
         return new Builder(activity);
     }
 
     public static class Builder {
         private PublishSubject<RActivityResponse> subject;
-        private RxActivityResultFragment rxActivityResultFragment;
+        private IProxyFragment iProxyFragment;
 
         private Builder(@NonNull Activity activity) {
-            rxActivityResultFragment = getRxActivityResultFragment(activity);
+            iProxyFragment = getRxActivityResultFragment(activity);
             subject = PublishSubject.<RActivityResponse>create();
-            rxActivityResultFragment.setRActivityResponseSubject(subject);
+            iProxyFragment.setRActivityResponseSubject(subject);
         }
 
         private RxActivityResultFragment getRxActivityResultFragment(@NonNull Activity activity) {
@@ -59,8 +60,8 @@ public class RActivityResult {
             return (RxActivityResultFragment) activity.getFragmentManager().findFragmentByTag(TAG);
         }
 
-        public Observable<RActivityResponse> startActivityForResult(@NonNull final RActivityRequest rActivityRequest) {
-            rxActivityResultFragment.startActivityForResult(rActivityRequest.requestIntent, rActivityRequest.requestCode);
+        public Observable<RActivityResponse> startActivityForResult(@NonNull RActivityRequest rActivityRequest) {
+            iProxyFragment.startActivityForResult(rActivityRequest);
             return subject;
         }
     }

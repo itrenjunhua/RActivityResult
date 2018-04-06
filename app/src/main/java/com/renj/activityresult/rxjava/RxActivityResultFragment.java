@@ -21,7 +21,7 @@ import io.reactivex.subjects.Subject;
  * <p>
  * ======================================================================
  */
-public class RxActivityResultFragment extends Fragment {
+public class RxActivityResultFragment extends Fragment implements IProxyFragment {
     private static final String TAG = RxActivityResultFragment.class.getName();
     private Subject<RActivityResponse> subject;
 
@@ -44,12 +44,13 @@ public class RxActivityResultFragment extends Fragment {
         subject.onComplete();
     }
 
-    /**
-     * 设置subject
-     *
-     * @param subject
-     */
+    @Override
     public void setRActivityResponseSubject(@NonNull Subject<RActivityResponse> subject) {
         this.subject = subject;
+    }
+
+    @Override
+    public void startActivityForResult(RActivityRequest rActivityRequest) {
+        startActivityForResult(rActivityRequest.requestIntent, rActivityRequest.requestCode);
     }
 }
