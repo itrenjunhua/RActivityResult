@@ -7,20 +7,22 @@ import android.content.Intent;
  * <p>
  * 作者：Renj
  * <p>
- * 创建时间：2018-04-05   17:52
+ * 创建时间：2018-04-05   17:53
  * <p>
- * 描述：请求数据封装类
+ * 描述：返回结果数据封装类
  * <p>
  * 修订历史：
  * <p>
  * ======================================================================
  */
-public class ActivityRequest {
+public class RActivityResponse {
     public int requestCode;
-    public Intent requestIntent;
+    public int responseCode;
+    public Intent responseIntent;
 
-    public ActivityRequest(int requestCode, Intent requestIntent) {
+    public RActivityResponse(int requestCode, int responseCode, Intent responseIntent) {
         this.requestCode = requestCode;
-        this.requestIntent = requestIntent;
+        this.responseCode = responseCode;
+        this.responseIntent = responseIntent;
     }
 }
