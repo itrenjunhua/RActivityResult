@@ -40,7 +40,8 @@ public class RxActivityResultV4Fragment extends Fragment implements IProxyFragme
             return;
         }
 
-        subject.onNext(new RActivityResponse(requestCode, resultCode, data));
+        if (data != null)
+            subject.onNext(new RActivityResponse(requestCode, resultCode, data));
         subject.onComplete();
     }
 

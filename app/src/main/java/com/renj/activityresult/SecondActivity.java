@@ -28,7 +28,7 @@ import io.reactivex.functions.Consumer;
  * ======================================================================
  */
 public class SecondActivity extends AppCompatActivity {
-    private Button button1, button2;
+    private Button btClose, btOpenThreadActivity;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,10 +39,11 @@ public class SecondActivity extends AppCompatActivity {
         String name = intent.getStringExtra("name");
         Toast.makeText(SecondActivity.this, "获取结果: " + name, Toast.LENGTH_SHORT).show();
 
-        button1 = (Button) findViewById(R.id.bt_close);
-        button2 = (Button) findViewById(R.id.bt_open_thread);
+        btClose = findViewById(R.id.bt_close);
+        btOpenThreadActivity = findViewById(R.id.bt_open_thread);
 
-        button1.setOnClickListener(new View.OnClickListener() {
+        // 关闭当前Activity并设置返回值
+        btClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -52,7 +53,9 @@ public class SecondActivity extends AppCompatActivity {
             }
         });
 
-        button2.setOnClickListener(new View.OnClickListener() {
+
+        // 打开第三个Activity页面，并获取返回结果
+        btOpenThreadActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SecondActivity.this, ThreadActivity.class);
@@ -61,8 +64,8 @@ public class SecondActivity extends AppCompatActivity {
                         .startActivityForResult(new RActivityRequest(1, intent))
                         .subscribe(new Consumer<RActivityResponse>() {
                             @Override
-                            public void accept(RActivityResponse RActivityResponse) throws Exception {
-                                String resultName = RActivityResponse.responseIntent.getStringExtra("resultName");
+                            public void accept(RActivityResponse rActivityResponse) throws Exception {
+                                String resultName = rActivityResponse.responseIntent.getStringExtra("resultName");
                                 Toast.makeText(SecondActivity.this, "返回结果: " + resultName, Toast.LENGTH_SHORT).show();
                             }
                         });

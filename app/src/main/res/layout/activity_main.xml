@@ -16,13 +16,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:text="打开第二个Activity"/>
+        android:text="打开第二个Activity"
+        android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/bt_open_thread"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:text="打开第三个Activity"/>
+        android:text="打开第三个Activity"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/bt_open_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:text="打开Fragment页面"
+        android:textAllCaps="false"/>
 
 </LinearLayout>

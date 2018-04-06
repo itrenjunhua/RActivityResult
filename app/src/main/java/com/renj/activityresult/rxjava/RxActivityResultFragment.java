@@ -39,8 +39,8 @@ public class RxActivityResultFragment extends Fragment implements IProxyFragment
             Log.i(TAG, "没有设置subject !!!");
             return;
         }
-
-        subject.onNext(new RActivityResponse(requestCode, resultCode, data));
+        if (data != null)
+            subject.onNext(new RActivityResponse(requestCode, resultCode, data));
         subject.onComplete();
     }
 

@@ -22,7 +22,7 @@ import android.widget.Toast;
  * ======================================================================
  */
 public class ThreadActivity extends AppCompatActivity {
-    private Button button;
+    private Button btClose;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,9 +33,10 @@ public class ThreadActivity extends AppCompatActivity {
         String name = intent.getStringExtra("name");
         Toast.makeText(ThreadActivity.this, "获取结果: " + name, Toast.LENGTH_SHORT).show();
 
-        button = (Button) findViewById(R.id.bt_close);
+        btClose = findViewById(R.id.bt_close);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        // 关闭当前Activity并设置返回值
+        btClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
