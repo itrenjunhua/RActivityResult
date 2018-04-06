@@ -3,6 +3,7 @@ package com.renj.activityresult.rxjava;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
@@ -28,7 +29,13 @@ public class RActivityResult {
 
     @NonNull
     public static Builder create(@NonNull Activity activity) {
-        return new Builder(activity);
+        if (activity instanceof FragmentActivity) {
+            return new Builder((FragmentActivity) activity);
+        } else if (activity instanceof Activity) {
+            return new Builder(activity);
+        } else {
+            throw new IllegalArgumentException("Activity 参数异常!!!");
+        }
     }
 
     public static class Builder {
@@ -37,6 +44,12 @@ public class RActivityResult {
 
         private Builder(@NonNull Activity activity) {
             iProxyFragment = getRxActivityResultFragment(activity);
+            subject = PublishSubject.<RActivityResponse>create();
+            iProxyFragment.setRActivityResponseSubject(subject);
+        }
+
+        private Builder(@NonNull FragmentActivity fragmentActivity) {
+            iProxyFragment = getRxActivityResultV4Fragment(fragmentActivity);
             subject = PublishSubject.<RActivityResponse>create();
             iProxyFragment.setRActivityResponseSubject(subject);
         }
@@ -58,6 +71,25 @@ public class RActivityResult {
 
         private RxActivityResultFragment findRxActivityResultFragment(Activity activity) {
             return (RxActivityResultFragment) activity.getFragmentManager().findFragmentByTag(TAG);
+        }
+
+        private RxActivityResultV4Fragment getRxActivityResultV4Fragment(@NonNull FragmentActivity fragmentActivity) {
+            RxActivityResultV4Fragment rxActivityResultV4Fragment = findRxActivityResultV4Fragment(fragmentActivity);
+            boolean isNewInstance = rxActivityResultV4Fragment == null;
+            if (isNewInstance) {
+                rxActivityResultV4Fragment = new RxActivityResultV4Fragment();
+                android.support.v4.app.FragmentManager supportFragmentManager = fragmentActivity.getSupportFragmentManager();
+                supportFragmentManager
+                        .beginTransaction()
+                        .add(rxActivityResultV4Fragment, TAG)
+                        .commitAllowingStateLoss();
+                supportFragmentManager.executePendingTransactions();
+            }
+            return rxActivityResultV4Fragment;
+        }
+
+        private RxActivityResultV4Fragment findRxActivityResultV4Fragment(FragmentActivity fragmentActivity) {
+            return (RxActivityResultV4Fragment) fragmentActivity.getSupportFragmentManager().findFragmentByTag(TAG);
         }
 
         public Observable<RActivityResponse> startActivityForResult(@NonNull RActivityRequest rActivityRequest) {

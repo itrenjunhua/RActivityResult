@@ -1,9 +1,9 @@
 package com.renj.activityresult.rxjava;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import io.reactivex.subjects.Subject;
@@ -15,14 +15,14 @@ import io.reactivex.subjects.Subject;
  * <p>
  * 创建时间：2018-04-06   18:05
  * <p>
- * 描述：继承至 {@link android.app.Fragment} 类
+ * 描述：继承至 {@link android.support.v4.app.Fragment} 类
  * <p>
  * 修订历史：
  * <p>
  * ======================================================================
  */
-public class RxActivityResultFragment extends Fragment implements IProxyFragment {
-    private static final String TAG = RxActivityResultFragment.class.getName();
+public class RxActivityResultV4Fragment extends Fragment implements IProxyFragment {
+    private static final String TAG = RxActivityResultV4Fragment.class.getName();
     private Subject<RActivityResponse> subject;
 
     @Override

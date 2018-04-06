@@ -18,4 +18,11 @@
         android:layout_margin="15dp"
         android:text="打开第二个Activity"/>
 
+    <Button
+        android:id="@+id/bt_open_thread"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:text="打开第三个Activity"/>
+
 </LinearLayout>
