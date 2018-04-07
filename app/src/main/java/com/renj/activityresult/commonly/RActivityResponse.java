@@ -1,4 +1,4 @@
-package com.renj.activityresult.rxjava;
+package com.renj.activityresult.commonly;
 
 import android.content.Intent;
 
