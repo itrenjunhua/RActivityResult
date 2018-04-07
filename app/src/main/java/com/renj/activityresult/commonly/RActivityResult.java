@@ -91,7 +91,7 @@ public class RActivityResult {
         }
     }
 
-    public abstract class RActivityResultListener {
+    public abstract static class RActivityResultListener {
         public abstract void onResult(@NonNull RActivityResponse rActivityResponse);
 
         public void onComplete() {

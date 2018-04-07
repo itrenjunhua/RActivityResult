@@ -1,4 +1,4 @@
-package com.renj.activityresult;
+package com.renj.activityresult.rxtest;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.renj.activityresult.R;
 import com.renj.activityresult.rxjava.RActivityRequest;
 import com.renj.activityresult.rxjava.RActivityResponse;
 import com.renj.activityresult.rxjava.RActivityResult;
@@ -30,7 +31,7 @@ import io.reactivex.functions.Consumer;
  * <p>
  * ======================================================================
  */
-public class MyAppFragment extends Fragment {
+public class RxMyAppFragment extends Fragment {
     private Button btOpenSecondActivity, btOpenThreadActivity;
 
     @Nullable
@@ -44,7 +45,7 @@ public class MyAppFragment extends Fragment {
         btOpenSecondActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SecondActivity.class);
+                Intent intent = new Intent(getActivity(), RxSecondActivity.class);
                 intent.putExtra("name", "从app包下Fragment页面打开第二个页面");
                 RActivityResult.create(getActivity())
                         .startActivityForResult(new RActivityRequest(1, intent))
@@ -62,7 +63,7 @@ public class MyAppFragment extends Fragment {
         btOpenThreadActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ThreadActivity.class);
+                Intent intent = new Intent(getActivity(), RxThreadActivity.class);
                 intent.putExtra("name", "从app包下Fragment页面打开第三个页面");
                 RActivityResult.create(getActivity())
                         .startActivityForResult(new RActivityRequest(1, intent))

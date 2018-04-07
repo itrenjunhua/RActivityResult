@@ -1,4 +1,4 @@
-package com.renj.activityresult;
+package com.renj.activityresult.rxtest;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
+
+import com.renj.activityresult.R;
 
 /**
  * ======================================================================
@@ -21,10 +23,10 @@ import android.widget.Button;
  * <p>
  * ======================================================================
  */
-public class MyFragmentActivity extends FragmentActivity {
+public class RxMyFragmentActivity extends FragmentActivity {
     private Button btV4Fragment, btAppFragment;
-    private MyV4Fragment v4Fragment;
-    private MyAppFragment appFragment;
+    private RxMyV4Fragment v4Fragment;
+    private RxMyAppFragment appFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,8 +36,8 @@ public class MyFragmentActivity extends FragmentActivity {
         btV4Fragment = findViewById(R.id.bt_v4_fragment);
         btAppFragment = findViewById(R.id.bt_app_fragment);
 
-        v4Fragment = new MyV4Fragment();
-        appFragment = new MyAppFragment();
+        v4Fragment = new RxMyV4Fragment();
+        appFragment = new RxMyAppFragment();
 
         // 默认显示v4包下的
         FragmentManager supportFragmentManager = getSupportFragmentManager();
@@ -49,7 +51,7 @@ public class MyFragmentActivity extends FragmentActivity {
             public void onClick(View v) {
                 FragmentManager supportFragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fl_content, new MyV4Fragment());
+                fragmentTransaction.replace(R.id.fl_content, new RxMyV4Fragment());
                 fragmentTransaction.commit();
             }
         });

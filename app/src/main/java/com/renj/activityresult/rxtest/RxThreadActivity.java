@@ -1,4 +1,4 @@
-package com.renj.activityresult;
+package com.renj.activityresult.rxtest;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.renj.activityresult.R;
 
 /**
  * ======================================================================
@@ -21,7 +23,7 @@ import android.widget.Toast;
  * <p>
  * ======================================================================
  */
-public class ThreadActivity extends AppCompatActivity {
+public class RxThreadActivity extends AppCompatActivity {
     private Button btClose;
 
     @Override
@@ -31,7 +33,7 @@ public class ThreadActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
-        Toast.makeText(ThreadActivity.this, "获取结果: " + name, Toast.LENGTH_SHORT).show();
+        Toast.makeText(RxThreadActivity.this, "获取结果: " + name, Toast.LENGTH_SHORT).show();
 
         btClose = findViewById(R.id.bt_close);
 
