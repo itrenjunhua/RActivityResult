@@ -49,7 +49,12 @@ public class RActivityResultFragment extends Fragment implements IProxyFragment 
     }
 
     @Override
-    public void startActivityForResult(RActivityRequest rActivityRequest) {
+    public void startActivityForResult(@NonNull RActivityRequest rActivityRequest) {
         startActivityForResult(rActivityRequest.requestIntent, rActivityRequest.requestCode);
+    }
+
+    @Override
+    public void startActivityForResult(@NonNull Intent intent) {
+        startActivityForResult(intent);
     }
 }

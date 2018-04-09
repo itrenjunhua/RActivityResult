@@ -2,6 +2,7 @@ package com.renj.activityresult.commonly;
 
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 
@@ -83,6 +84,11 @@ public class RActivityResult {
 
         private RActivityResultV4Fragment findRActivityResultV4Fragment(FragmentActivity fragmentActivity) {
             return (RActivityResultV4Fragment) fragmentActivity.getSupportFragmentManager().findFragmentByTag(TAG);
+        }
+
+        public void startActivityForResult(@NonNull Intent intent, @NonNull RActivityResultListener rActivityResultListener) {
+            iProxyFragment.setRActivityResultListener(rActivityResultListener);
+            iProxyFragment.startActivityForResult(intent);
         }
 
         public void startActivityForResult(@NonNull RActivityRequest rActivityRequest, @NonNull RActivityResultListener rActivityResultListener) {

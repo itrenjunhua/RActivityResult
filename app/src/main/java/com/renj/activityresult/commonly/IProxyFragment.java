@@ -1,5 +1,6 @@
 package com.renj.activityresult.commonly;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 
 /**
@@ -24,9 +25,16 @@ public interface IProxyFragment {
     void setRActivityResultListener(@NonNull RActivityResult.RActivityResultListener rActivityResultListener);
 
     /**
-     * 调用 startActivityForResult() 方法
+     * 调用 startActivityForResult() 方法，传递 {@link RActivityRequest} 封装对象，包含 {@link Intent} 对象 和 requestCode
      *
-     * @param rActivityRequest
+     * @param rActivityRequest {@link RActivityRequest} 对象
      */
-    void startActivityForResult(RActivityRequest rActivityRequest);
+    void startActivityForResult(@NonNull RActivityRequest rActivityRequest);
+
+    /**
+     * 调用 startActivityForResult() 方法，传递 {@link Intent} 对象
+     *
+     * @param intent {@link Intent} 对象
+     */
+    void startActivityForResult(@NonNull Intent intent);
 }
