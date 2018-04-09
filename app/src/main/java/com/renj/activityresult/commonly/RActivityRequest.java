@@ -16,7 +16,13 @@ import android.content.Intent;
  * ======================================================================
  */
 public class RActivityRequest {
+    /**
+     * 请求码
+     */
     public int requestCode;
+    /**
+     * 请求的 {@link Intent} 对象
+     */
     public Intent requestIntent;
 
     public RActivityRequest(int requestCode, Intent requestIntent) {

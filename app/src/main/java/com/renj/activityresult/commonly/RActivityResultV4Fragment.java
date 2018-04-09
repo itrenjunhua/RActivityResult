@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
+import java.util.Random;
+
 /**
  * ======================================================================
  * <p>
@@ -40,7 +42,7 @@ public class RActivityResultV4Fragment extends Fragment implements IProxyFragmen
 
         if (data != null)
             rActivityResultListener.onResult(new RActivityResponse(requestCode, resultCode, data));
-        rActivityResultListener.onComplete();
+        rActivityResultListener.onComplete(data == null);
     }
 
     @Override
@@ -55,6 +57,10 @@ public class RActivityResultV4Fragment extends Fragment implements IProxyFragmen
 
     @Override
     public void startActivityForResult(@NonNull Intent intent) {
-        startActivityForResult(intent);
+        // 使用 intent.hashCode() 方式报错：java.lang.IllegalArgumentException: Can only use lower 16 bits for requestCode
+        // startActivityForResult(intent, intent.hashCode());
+        Random random = new Random();
+        int requestCode = random.nextInt(12500) + random.nextInt(25000);
+        startActivityForResult(intent, requestCode);
     }
 }

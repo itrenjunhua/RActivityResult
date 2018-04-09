@@ -41,9 +41,10 @@ public class ListenerFirstActivity extends AppCompatActivity {
                             }
 
                             @Override
-                            public void onComplete() {
+                            public void onComplete(boolean intentIsEmpty) {
                                 // 当返回结果的 Intent 为null时，将不会调用 onResult() 方法，只会调用 onComplete() 方法；否则两个方法都会调用
-                                // Toast.makeText(ListenerFirstActivity.this, "调用了onComplete()方法", Toast.LENGTH_SHORT).show();
+                                if (intentIsEmpty)
+                                    Toast.makeText(ListenerFirstActivity.this, "onComplete()方法intentIsEmpty为true：没有返回任何数据", Toast.LENGTH_SHORT).show();
                             }
                         });
 
@@ -57,7 +58,8 @@ public class ListenerFirstActivity extends AppCompatActivity {
                 Intent intent = new Intent(ListenerFirstActivity.this, ListenerThreadActivity.class);
                 intent.putExtra("name", "从第一个页面打开第三个页面");
                 RActivityResult.create(ListenerFirstActivity.this)
-                        .startActivityForResult(new RActivityRequest(1, intent), new RActivityResult.RActivityResultListener() {
+                        // 使用简单的方式打开，不传递requestCode
+                        .startActivityForResult(intent, new RActivityResult.RActivityResultListener() {
                             @Override
                             public void onResult(@NonNull RActivityResponse rActivityResponse) {
                                 String resultName = rActivityResponse.responseIntent.getStringExtra("resultName");

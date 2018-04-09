@@ -48,6 +48,7 @@ public class RActivityResult {
             iProxyFragment = getRActivityResultV4Fragment(fragmentActivity);
         }
 
+        //------------------------ app包 ---------------------//
         private RActivityResultFragment getRActivityResultFragment(@NonNull Activity activity) {
             RActivityResultFragment rActivityResultFragment = findRActivityResultFragment(activity);
             boolean isNewInstance = rActivityResultFragment == null;
@@ -67,6 +68,7 @@ public class RActivityResult {
             return (RActivityResultFragment) activity.getFragmentManager().findFragmentByTag(TAG);
         }
 
+        //------------------------ v4包 ---------------------//
         private RActivityResultV4Fragment getRActivityResultV4Fragment(@NonNull FragmentActivity fragmentActivity) {
             RActivityResultV4Fragment rActivityResultV4Fragment = findRActivityResultV4Fragment(fragmentActivity);
             boolean isNewInstance = rActivityResultV4Fragment == null;
@@ -86,21 +88,46 @@ public class RActivityResult {
             return (RActivityResultV4Fragment) fragmentActivity.getSupportFragmentManager().findFragmentByTag(TAG);
         }
 
+        /**
+         * 以 startActivityForResult() 的方式打开新的Activity，参数只传递 {@link Intent} 对象，在监听的回调中不需要对 requestCode 进行判断
+         *
+         * @param intent                  {@link Intent} 对象
+         * @param rActivityResultListener 回调监听 {@link RActivityResultListener} 对象
+         */
         public void startActivityForResult(@NonNull Intent intent, @NonNull RActivityResultListener rActivityResultListener) {
             iProxyFragment.setRActivityResultListener(rActivityResultListener);
             iProxyFragment.startActivityForResult(intent);
         }
 
+        /**
+         * 以 startActivityForResult() 的方式打开新的Activity，参数传递{@link RActivityRequest}对象，在监听的回调中根据需要对 requestCode 进行判断，一般情况下都不需要
+         *
+         * @param rActivityRequest        {@link RActivityRequest} 对象
+         * @param rActivityResultListener 回调监听 {@link RActivityResultListener} 对象
+         */
         public void startActivityForResult(@NonNull RActivityRequest rActivityRequest, @NonNull RActivityResultListener rActivityResultListener) {
             iProxyFragment.setRActivityResultListener(rActivityResultListener);
             iProxyFragment.startActivityForResult(rActivityRequest);
         }
     }
 
+    /**
+     * 返回结果之后的回调监听
+     */
     public abstract static class RActivityResultListener {
+        /**
+         * {@link Intent} 不为 {@code null} 的时候才会回调的方法
+         *
+         * @param rActivityResponse {@link RActivityResponse} 对象，回调了这个方法 {@link RActivityResponse#responseIntent} 不会为 {@code null} 了
+         */
         public abstract void onResult(@NonNull RActivityResponse rActivityResponse);
 
-        public void onComplete() {
+        /**
+         * 一定会回调的方法，表示完成。这个方法主要是在不需要传递数据，只需要新打开的界面关闭了然后做其他操作时重写即可
+         *
+         * @param intentIsEmpty {@link RActivityResponse#responseIntent} 是否为 {@code null}，true：为{@code null}；false：非 {@code null}
+         */
+        public void onComplete(boolean intentIsEmpty) {
 
         }
     }

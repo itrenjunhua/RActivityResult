@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.renj.activityresult.R;
-import com.renj.activityresult.commonly.RActivityRequest;
 import com.renj.activityresult.commonly.RActivityResponse;
 import com.renj.activityresult.commonly.RActivityResult;
 
@@ -61,7 +60,8 @@ public class ListenerSecondActivity extends AppCompatActivity {
                 Intent intent = new Intent(ListenerSecondActivity.this, ListenerThreadActivity.class);
                 intent.putExtra("name", "从第二个页面打开第三个页面");
                 RActivityResult.create(ListenerSecondActivity.this)
-                        .startActivityForResult(new RActivityRequest(1, intent), new RActivityResult.RActivityResultListener() {
+                        // 使用简单的方式打开，不传递requestCode
+                        .startActivityForResult(intent, new RActivityResult.RActivityResultListener() {
                             @Override
                             public void onResult(@NonNull RActivityResponse rActivityResponse) {
                                 String resultName = rActivityResponse.responseIntent.getStringExtra("resultName");

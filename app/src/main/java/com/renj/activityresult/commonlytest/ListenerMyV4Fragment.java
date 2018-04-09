@@ -63,7 +63,8 @@ public class ListenerMyV4Fragment extends Fragment {
                 Intent intent = new Intent(getActivity(), ListenerThreadActivity.class);
                 intent.putExtra("name", "从v4包下Fragment页面打开第三个页面");
                 RActivityResult.create(getActivity())
-                        .startActivityForResult(new RActivityRequest(1, intent), new RActivityResult.RActivityResultListener() {
+                        // 使用简单的方式打开，不传递requestCode
+                        .startActivityForResult( intent, new RActivityResult.RActivityResultListener() {
                             @Override
                             public void onResult(@NonNull RActivityResponse rActivityResponse) {
                                 String resultName = rActivityResponse.responseIntent.getStringExtra("resultName");
