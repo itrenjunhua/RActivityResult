@@ -2,6 +2,7 @@ package com.renj.activityresult.rxjava;
 
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 
@@ -54,6 +55,7 @@ public class RActivityResult {
             iProxyFragment.setRActivityResponseSubject(subject);
         }
 
+        //------------------------ app包 ---------------------//
         private RxActivityResultFragment getRxActivityResultFragment(@NonNull Activity activity) {
             RxActivityResultFragment rxActivityResultFragment = findRxActivityResultFragment(activity);
             boolean isNewInstance = rxActivityResultFragment == null;
@@ -73,6 +75,7 @@ public class RActivityResult {
             return (RxActivityResultFragment) activity.getFragmentManager().findFragmentByTag(TAG);
         }
 
+        //------------------------ v4包 ---------------------//
         private RxActivityResultV4Fragment getRxActivityResultV4Fragment(@NonNull FragmentActivity fragmentActivity) {
             RxActivityResultV4Fragment rxActivityResultV4Fragment = findRxActivityResultV4Fragment(fragmentActivity);
             boolean isNewInstance = rxActivityResultV4Fragment == null;
@@ -91,6 +94,22 @@ public class RActivityResult {
         private RxActivityResultV4Fragment findRxActivityResultV4Fragment(FragmentActivity fragmentActivity) {
             return (RxActivityResultV4Fragment) fragmentActivity.getSupportFragmentManager().findFragmentByTag(TAG);
         }
+
+        /**
+         * 以 startActivityForResult() 的方式打开新的Activity，参数只传递 {@link Intent} 对象，在监听的回调中不需要对 requestCode 进行判断
+         *
+         * @param intent {@link Intent} 对象
+         */
+        public Observable<RActivityResponse> startActivityForResult(@NonNull Intent intent) {
+            iProxyFragment.startActivityForResult(intent);
+            return subject;
+        }
+
+        /**
+         * 以 startActivityForResult() 的方式打开新的Activity，参数传递{@link RActivityRequest}对象，在监听的回调中根据需要对 requestCode 进行判断，一般情况下都不需要
+         *
+         * @param rActivityRequest {@link RActivityRequest} 对象
+         */
 
         public Observable<RActivityResponse> startActivityForResult(@NonNull RActivityRequest rActivityRequest) {
             iProxyFragment.startActivityForResult(rActivityRequest);

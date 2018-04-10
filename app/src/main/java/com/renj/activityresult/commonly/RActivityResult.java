@@ -21,7 +21,7 @@ import android.support.v4.app.FragmentActivity;
  * ======================================================================
  */
 public class RActivityResult {
-    private static final String TAG = "RActivityResult_Rx";
+    private static final String TAG = "RActivityResult_Commonly";
 
     private RActivityResult() {
     }
