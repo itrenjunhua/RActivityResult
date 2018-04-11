@@ -1,4 +1,4 @@
-package com.renj.activityresult;
+package com.renj.activityresulttest;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.renj.activityresult.commonlytest.ListenerFirstActivity;
-import com.renj.activityresult.rxtest.RxFirstActivity;
+import com.renj.activityresulttest.commonlytest.ListenerFirstActivity;
+import com.renj.activityresulttest.rxtest.RxFirstActivity;
 
 /**
  * ======================================================================

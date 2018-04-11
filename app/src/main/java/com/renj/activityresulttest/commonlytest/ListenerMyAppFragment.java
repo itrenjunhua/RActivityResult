@@ -1,22 +1,20 @@
-package com.renj.activityresult.rxtest;
+package com.renj.activityresulttest.commonlytest;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.renj.activityresult.R;
-import com.renj.activityresult.rxjava.RActivityRequest;
-import com.renj.activityresult.rxjava.RActivityResponse;
-import com.renj.activityresult.rxjava.RActivityResult;
-
-import io.reactivex.functions.Consumer;
+import com.renj.activityresult.commonly.RActivityRequest;
+import com.renj.activityresult.commonly.RActivityResponse;
+import com.renj.activityresult.commonly.RActivityResult;
+import com.renj.activityresulttest.R;
 
 /**
  * ======================================================================
@@ -25,19 +23,19 @@ import io.reactivex.functions.Consumer;
  * <p>
  * 创建时间：2018-04-06   21:00
  * <p>
- * 描述：继承至v4支持包的Fragment
+ * 描述：继承至app支持包的Fragment
  * <p>
  * 修订历史：
  * <p>
  * ======================================================================
  */
-public class RxMyV4Fragment extends Fragment {
+public class ListenerMyAppFragment extends Fragment {
     private Button btOpenSecondActivity, btOpenThreadActivity;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_v4, null);
+        View view = inflater.inflate(R.layout.fragment_app, null);
         btOpenSecondActivity = view.findViewById(R.id.bt_open_second);
         btOpenThreadActivity = view.findViewById(R.id.bt_open_thread);
 
@@ -45,13 +43,12 @@ public class RxMyV4Fragment extends Fragment {
         btOpenSecondActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), RxSecondActivity.class);
-                intent.putExtra("name", "从v4包下Fragment页面打开第二个页面");
+                Intent intent = new Intent(getActivity(), ListenerSecondActivity.class);
+                intent.putExtra("name", "从app包下Fragment页面打开第二个页面");
                 RActivityResult.create(getActivity())
-                        .startActivityForResult(new RActivityRequest(1, intent))
-                        .subscribe(new Consumer<RActivityResponse>() {
+                        .startActivityForResult(new RActivityRequest(1, intent), new RActivityResult.RActivityResultListener() {
                             @Override
-                            public void accept(RActivityResponse rActivityResponse) throws Exception {
+                            public void onResult(@NonNull RActivityResponse rActivityResponse) {
                                 String resultName = rActivityResponse.responseIntent.getStringExtra("resultName");
                                 Toast.makeText(getActivity(), "返回结果: " + resultName, Toast.LENGTH_SHORT).show();
                             }
@@ -63,14 +60,13 @@ public class RxMyV4Fragment extends Fragment {
         btOpenThreadActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), RxThreadActivity.class);
-                intent.putExtra("name", "从v4包下Fragment页面打开第三个页面");
+                Intent intent = new Intent(getActivity(), ListenerThreadActivity.class);
+                intent.putExtra("name", "从app包下Fragment页面打开第三个页面");
                 RActivityResult.create(getActivity())
                         // 使用简单的方式打开，不传递requestCode
-                        .startActivityForResult(intent)
-                        .subscribe(new Consumer<RActivityResponse>() {
+                        .startActivityForResult(intent, new RActivityResult.RActivityResultListener() {
                             @Override
-                            public void accept(RActivityResponse rActivityResponse) throws Exception {
+                            public void onResult(@NonNull RActivityResponse rActivityResponse) {
                                 String resultName = rActivityResponse.responseIntent.getStringExtra("resultName");
                                 Toast.makeText(getActivity(), "返回结果: " + resultName, Toast.LENGTH_SHORT).show();
                             }

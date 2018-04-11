@@ -1,4 +1,4 @@
-package com.renj.activityresult.commonlytest;
+package com.renj.activityresulttest.rxtest;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
 
-import com.renj.activityresult.R;
+import com.renj.activityresulttest.R;
 
 /**
  * ======================================================================
@@ -23,10 +23,10 @@ import com.renj.activityresult.R;
  * <p>
  * ======================================================================
  */
-public class ListenerMyFragmentActivity extends FragmentActivity {
+public class RxMyFragmentActivity extends FragmentActivity {
     private Button btV4Fragment, btAppFragment;
-    private ListenerMyV4Fragment v4Fragment;
-    private ListenerMyAppFragment appFragment;
+    private RxMyV4Fragment v4Fragment;
+    private RxMyAppFragment appFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,8 +36,8 @@ public class ListenerMyFragmentActivity extends FragmentActivity {
         btV4Fragment = findViewById(R.id.bt_v4_fragment);
         btAppFragment = findViewById(R.id.bt_app_fragment);
 
-        v4Fragment = new ListenerMyV4Fragment();
-        appFragment = new ListenerMyAppFragment();
+        v4Fragment = new RxMyV4Fragment();
+        appFragment = new RxMyAppFragment();
 
         // 默认显示v4包下的
         FragmentManager supportFragmentManager = getSupportFragmentManager();
@@ -51,7 +51,7 @@ public class ListenerMyFragmentActivity extends FragmentActivity {
             public void onClick(View v) {
                 FragmentManager supportFragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fl_content, new ListenerMyV4Fragment());
+                fragmentTransaction.replace(R.id.fl_content, new RxMyV4Fragment());
                 fragmentTransaction.commit();
             }
         });

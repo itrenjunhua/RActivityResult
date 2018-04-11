@@ -1,18 +1,17 @@
-package com.renj.activityresult.rxtest;
+package com.renj.activityresulttest.commonlytest;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.renj.activityresult.R;
-import com.renj.activityresult.rxjava.RActivityResponse;
-import com.renj.activityresult.rxjava.RActivityResult;
-
-import io.reactivex.functions.Consumer;
+import com.renj.activityresulttest.R;
+import com.renj.activityresult.commonly.RActivityResponse;
+import com.renj.activityresult.commonly.RActivityResult;
 
 /**
  * ======================================================================
@@ -27,7 +26,7 @@ import io.reactivex.functions.Consumer;
  * <p>
  * ======================================================================
  */
-public class RxSecondActivity extends AppCompatActivity {
+public class ListenerSecondActivity extends AppCompatActivity {
     private Button btClose, btOpenThreadActivity;
 
     @Override
@@ -37,7 +36,7 @@ public class RxSecondActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
-        Toast.makeText(RxSecondActivity.this, "获取结果: " + name, Toast.LENGTH_SHORT).show();
+        Toast.makeText(ListenerSecondActivity.this, "获取结果: " + name, Toast.LENGTH_SHORT).show();
 
         btClose = findViewById(R.id.bt_close);
         btOpenThreadActivity = findViewById(R.id.bt_open_thread);
@@ -58,16 +57,15 @@ public class RxSecondActivity extends AppCompatActivity {
         btOpenThreadActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RxSecondActivity.this, RxThreadActivity.class);
+                Intent intent = new Intent(ListenerSecondActivity.this, ListenerThreadActivity.class);
                 intent.putExtra("name", "从第二个页面打开第三个页面");
-                RActivityResult.create(RxSecondActivity.this)
+                RActivityResult.create(ListenerSecondActivity.this)
                         // 使用简单的方式打开，不传递requestCode
-                        .startActivityForResult(intent)
-                        .subscribe(new Consumer<RActivityResponse>() {
+                        .startActivityForResult(intent, new RActivityResult.RActivityResultListener() {
                             @Override
-                            public void accept(RActivityResponse rActivityResponse) throws Exception {
+                            public void onResult(@NonNull RActivityResponse rActivityResponse) {
                                 String resultName = rActivityResponse.responseIntent.getStringExtra("resultName");
-                                Toast.makeText(RxSecondActivity.this, "返回结果: " + resultName, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ListenerSecondActivity.this, "返回结果: " + resultName, Toast.LENGTH_SHORT).show();
                             }
                         });
             }

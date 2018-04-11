@@ -1,4 +1,4 @@
-package com.renj.activityresult.commonlytest;
+package com.renj.activityresulttest.rxtest;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.renj.activityresult.R;
-import com.renj.activityresult.commonly.RActivityRequest;
-import com.renj.activityresult.commonly.RActivityResponse;
-import com.renj.activityresult.commonly.RActivityResult;
+import com.renj.activityresulttest.R;
+import com.renj.activityresult.rxjava.RActivityRequest;
+import com.renj.activityresult.rxjava.RActivityResponse;
+import com.renj.activityresult.rxjava.RActivityResult;
+
+import io.reactivex.functions.Consumer;
 
 /**
  * ======================================================================
@@ -29,7 +31,7 @@ import com.renj.activityresult.commonly.RActivityResult;
  * <p>
  * ======================================================================
  */
-public class ListenerMyV4Fragment extends Fragment {
+public class RxMyV4Fragment extends Fragment {
     private Button btOpenSecondActivity, btOpenThreadActivity;
 
     @Nullable
@@ -43,12 +45,13 @@ public class ListenerMyV4Fragment extends Fragment {
         btOpenSecondActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ListenerSecondActivity.class);
+                Intent intent = new Intent(getActivity(), RxSecondActivity.class);
                 intent.putExtra("name", "从v4包下Fragment页面打开第二个页面");
                 RActivityResult.create(getActivity())
-                        .startActivityForResult(new RActivityRequest(1, intent), new RActivityResult.RActivityResultListener() {
+                        .startActivityForResult(new RActivityRequest(1, intent))
+                        .subscribe(new Consumer<RActivityResponse>() {
                             @Override
-                            public void onResult(@NonNull RActivityResponse rActivityResponse) {
+                            public void accept(RActivityResponse rActivityResponse) throws Exception {
                                 String resultName = rActivityResponse.responseIntent.getStringExtra("resultName");
                                 Toast.makeText(getActivity(), "返回结果: " + resultName, Toast.LENGTH_SHORT).show();
                             }
@@ -60,13 +63,14 @@ public class ListenerMyV4Fragment extends Fragment {
         btOpenThreadActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ListenerThreadActivity.class);
+                Intent intent = new Intent(getActivity(), RxThreadActivity.class);
                 intent.putExtra("name", "从v4包下Fragment页面打开第三个页面");
                 RActivityResult.create(getActivity())
                         // 使用简单的方式打开，不传递requestCode
-                        .startActivityForResult( intent, new RActivityResult.RActivityResultListener() {
+                        .startActivityForResult(intent)
+                        .subscribe(new Consumer<RActivityResponse>() {
                             @Override
-                            public void onResult(@NonNull RActivityResponse rActivityResponse) {
+                            public void accept(RActivityResponse rActivityResponse) throws Exception {
                                 String resultName = rActivityResponse.responseIntent.getStringExtra("resultName");
                                 Toast.makeText(getActivity(), "返回结果: " + resultName, Toast.LENGTH_SHORT).show();
                             }

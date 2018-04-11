@@ -1,4 +1,4 @@
-package com.renj.activityresult.rxtest;
+package com.renj.activityresulttest.rxtest;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.renj.activityresult.R;
+import com.renj.activityresulttest.R;
 import com.renj.activityresult.rxjava.RActivityRequest;
 import com.renj.activityresult.rxjava.RActivityResponse;
 import com.renj.activityresult.rxjava.RActivityResult;
