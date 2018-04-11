@@ -96,7 +96,7 @@
 
 ---
 
-#### 最后，如果需要拿到返回结果，我们必须在新打开的页面里调用 方法设置结果。
+#### 最后，如果需要拿到返回结果，我们必须在新打开的页面里调用 `setResult(int resultCode, Intent data)` 方法设置结果。
 例：
 
     Intent intent = new Intent();
