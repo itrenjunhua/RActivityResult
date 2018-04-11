@@ -66,7 +66,8 @@ public class RxMyV4Fragment extends Fragment {
                 Intent intent = new Intent(getActivity(), RxThreadActivity.class);
                 intent.putExtra("name", "从v4包下Fragment页面打开第三个页面");
                 RActivityResult.create(getActivity())
-                        .startActivityForResult(new RActivityRequest(1, intent))
+                        // 使用简单的方式打开，不传递requestCode
+                        .startActivityForResult(intent)
                         .subscribe(new Consumer<RActivityResponse>() {
                             @Override
                             public void accept(RActivityResponse rActivityResponse) throws Exception {

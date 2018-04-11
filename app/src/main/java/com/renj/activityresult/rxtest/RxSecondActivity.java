@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.renj.activityresult.R;
-import com.renj.activityresult.rxjava.RActivityRequest;
 import com.renj.activityresult.rxjava.RActivityResponse;
 import com.renj.activityresult.rxjava.RActivityResult;
 
@@ -62,7 +61,8 @@ public class RxSecondActivity extends AppCompatActivity {
                 Intent intent = new Intent(RxSecondActivity.this, RxThreadActivity.class);
                 intent.putExtra("name", "从第二个页面打开第三个页面");
                 RActivityResult.create(RxSecondActivity.this)
-                        .startActivityForResult(new RActivityRequest(1, intent))
+                        // 使用简单的方式打开，不传递requestCode
+                        .startActivityForResult(intent)
                         .subscribe(new Consumer<RActivityResponse>() {
                             @Override
                             public void accept(RActivityResponse rActivityResponse) throws Exception {

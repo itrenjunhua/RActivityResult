@@ -70,7 +70,8 @@ public class RxFirstActivity extends AppCompatActivity {
                 Intent intent = new Intent(RxFirstActivity.this, RxThreadActivity.class);
                 intent.putExtra("name", "从第一个页面打开第三个页面");
                 RActivityResult.create(RxFirstActivity.this)
-                        .startActivityForResult(new RActivityRequest(1, intent))
+                        // 使用简单的方式打开，不传递requestCode
+                        .startActivityForResult(intent)
                         .subscribe(new Consumer<RActivityResponse>() {
                             @Override
                             public void accept(RActivityResponse rActivityResponse) throws Exception {
